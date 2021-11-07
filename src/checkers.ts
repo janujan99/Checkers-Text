@@ -101,6 +101,15 @@ class Checker {
     this.has_promoted = true;
     this.char = this.char.charAt(0).toUpperCase();
   }
+  no_captures_possible(grid: (Checker | null)[][]) {
+    return this.get_capture_moves(grid).length == 0;
+  }
+  legal_moves_exist(grid: (Checker | null)[][]) {
+    return (
+      !this.no_captures_possible(grid) &&
+      this.get_non_capture_moves(grid).length > 0
+    );
+  }
 }
 
 class Board {
@@ -208,9 +217,21 @@ class Board {
       this.grid[(final[1] + initial[1]) / 2][(final[0] + initial[0]) / 2] =
         null;
     }
+    let rank: number = final[1];
+    if (
+      (rank == 0 && this.grid[final[1]][final[0]]?.colour == "Red") ||
+      (rank == 7 && this.grid[final[1]][final[0]]?.colour == "Black")
+    ) {
+      this.grid[final[1]][final[0]]?.promote();
+    }
   }
 }
 
+let game_over: boolean = false;
+
+while (!game_over) {
+  //Prompt for input of move
+}
 /* //Test that check object is valid
 let check = new Checker("Red", 1, 0);
 console.log(check.char);
@@ -223,7 +244,7 @@ console.log(pt.y); */
 board.display();
 console.log(board.grid[0][7]?.get_non_capture_moves(board.grid)); */
 // testing move capability and that piece position gets updated adequately
-let move_test_board = new Board();
+/* let move_test_board = new Board();
 move_test_board.display();
 move_test_board.move([0, 5], [1, 4]);
 move_test_board.move([1, 2], [0, 3]);
@@ -231,4 +252,4 @@ move_test_board.move([2, 5], [3, 4]);
 console.log(
   move_test_board.grid[3][0]?.get_capture_moves(move_test_board.grid)
 );
-move_test_board.display();
+move_test_board.display(); */
