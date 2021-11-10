@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "outDir": "./built",
+    "strict": true,
+    "target": "es5",
+    "lib": ["es2017", "DOM"]
+  },
+  "include": ["./src/**/*"]
+}
